@@ -1,13 +1,12 @@
 import mlflow.pyfunc
 from flask import Flask, jsonify, request
 import pandas as pd
-import os
+
+app = Flask(__name__)
 
 # Load the saved model
 model_path = "random_forest_model"
 loaded_model = mlflow.pyfunc.load_model(model_path)
-
-app = Flask(__name__)
 
 # Define a predict endpoint
 @app.route('/predict', methods=['POST'])
@@ -30,4 +29,3 @@ def predict():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-..
