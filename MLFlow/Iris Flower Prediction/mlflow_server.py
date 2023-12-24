@@ -13,7 +13,7 @@ class ModelServer:
             return predictions.tolist()
 
         except Exception as e:
-            raise ValueError(str(e))
+            raise ValueError(f"Prediction error: {str(e)}")
 
 app = Flask(__name__)
 
@@ -26,7 +26,7 @@ def predict():
     try:
         # Get input data from the request
         data = request.get_json(force=True)
-        input_data = pd.DataFrame(data['data'], columns=data['columns'])
+        input_data = pd.DataFrame(data.get('data', []), columns=data.get('columns', []))
 
         # Make predictions using the model server
         predictions = model_server.predict(input_data)
