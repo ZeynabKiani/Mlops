@@ -38,7 +38,7 @@ def save_test_data(X_test, feature_names, output_path="data/test_data.csv"):
     os.makedirs("data", exist_ok=True)
     pd.DataFrame(X_test, columns=feature_names).to_csv(output_path, index=False)
 
-if __name__ == "__main__":
+def main():
     # Load and split data
     X_train, X_test, y_train, y_test = load_and_split_data()
 
@@ -55,3 +55,6 @@ if __name__ == "__main__":
 
     # Save the test data
     save_test_data(X_test, load_iris().feature_names)
+
+if __name__ == "__main__":
+    main()
