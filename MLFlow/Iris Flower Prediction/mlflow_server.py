@@ -8,7 +8,6 @@ class ModelServer:
 
     def predict(self, input_data):
         try:
-            # Make predictions using the loaded model
             predictions = self.loaded_model.predict(input_data)
             return predictions.tolist()
 
@@ -17,21 +16,15 @@ class ModelServer:
 
 app = Flask(__name__)
 
-# Load the saved model
-model_server = ModelServer(model_path="random_forest_model")
+def load_model_server(model_path="random_forest_model"):
+    return ModelServer(model_path)
 
-# Define a predict endpoint
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get input data from the request
         data = request.get_json(force=True)
         input_data = pd.DataFrame(data.get('data', []), columns=data.get('columns', []))
-
-        # Make predictions using the model server
         predictions = model_server.predict(input_data)
-
-        # Convert predictions to a JSON format
         result = {'predictions': predictions}
         return jsonify(result)
 
@@ -39,4 +32,6 @@ def predict():
         return jsonify({'error': str(ve)})
 
 if __name__ == '__main__':
+    # Load the saved model server
+    model_server = load_model_server()
     app.run(host='0.0.0.0', port=5000)
