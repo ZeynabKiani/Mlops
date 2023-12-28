@@ -8,10 +8,8 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score
 import os
 
 def load_and_split_data(test_size=0.2, random_state=42):
-    
     # Load Iris dataset and split into training and testing sets
     data = load_iris()
-    
     return train_test_split(data.data, data.target, test_size=test_size, random_state=random_state)
 
 def train_random_forest(X_train, y_train, n_estimators=100, random_state=42):
@@ -40,7 +38,7 @@ def save_test_data(X_test, feature_names, output_path="data/test_data.csv"):
     os.makedirs("data", exist_ok=True)
     pd.DataFrame(X_test, columns=feature_names).to_csv(output_path, index=False)
 
-def main():
+def run_mlflow_experiment():
     # Load and split data
     X_train, X_test, y_train, y_test = load_and_split_data()
 
@@ -59,4 +57,4 @@ def main():
     save_test_data(X_test, load_iris().feature_names)
 
 if __name__ == "__main__":
-    main()
+    run_mlflow_experiment()
