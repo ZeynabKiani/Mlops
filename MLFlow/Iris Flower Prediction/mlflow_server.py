@@ -9,6 +9,7 @@ class ModelServer:
     def predict(self, input_data):
         try:
             predictions = self.loaded_model.predict(input_data)
+            
             return predictions.tolist()
 
         except Exception as e:
