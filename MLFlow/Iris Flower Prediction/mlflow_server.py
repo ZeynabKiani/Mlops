@@ -14,24 +14,24 @@ class ModelServer:
         except Exception as e:
             raise ValueError(f"Prediction error: {str(e)}")
 
-app = Flask(__name__)
+def create_app(model_path="random_forest_model"):
+    app = Flask(__name__)
+    model_server = ModelServer(model_path)
 
-def load_model_server(model_path="random_forest_model"):
-    return ModelServer(model_path)
+    @app.route('/predict', methods=['POST'])
+    def predict():
+        try:
+            data = request.get_json(force=True)
+            input_data = pd.DataFrame(data.get('data', []), columns=data.get('columns', []))
+            predictions = model_server.predict(input_data)
+            result = {'predictions': predictions}
+            return jsonify(result)
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    try:
-        data = request.get_json(force=True)
-        input_data = pd.DataFrame(data.get('data', []), columns=data.get('columns', []))
-        predictions = model_server.predict(input_data)
-        result = {'predictions': predictions}
-        return jsonify(result)
+        except ValueError as ve:
+            return jsonify({'error': str(ve)})
 
-    except ValueError as ve:
-        return jsonify({'error': str(ve)})
+    return app
 
 if __name__ == '__main__':
-    # Load the saved model server
-    model_server = load_model_server()
+    app = create_app()
     app.run(host='0.0.0.0', port=5000)
