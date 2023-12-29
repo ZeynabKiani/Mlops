@@ -22,6 +22,7 @@ def create_and_run_app(model_path="random_forest_model"):
     def predict():
         try:
             data = request.get_json(force=True)
+            
             input_data = pd.DataFrame(data.get('data', []), columns=data.get('columns', []))
             predictions = model_server.predict(input_data)
             result = {'predictions': predictions}
