@@ -49,5 +49,4 @@ class MLFlowExperiment:
 
 if __name__ == "__main__":
     experiment = MLFlowExperiment()
-    experiment.run_experiment().
-.
+    experiment.run_experiment()
