@@ -4,6 +4,7 @@ import pandas as pd
 
 class ModelServer:
     def __init__(self, model_path):
+        
         self.loaded_model = mlflow.pyfunc.load_model(model_path)
 
     def predict(self, input_data):
