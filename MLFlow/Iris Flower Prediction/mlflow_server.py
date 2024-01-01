@@ -31,11 +31,15 @@ def create_and_run_app(model_path="random_forest_model"):
         except ValueError as ve:
             return jsonify({'error': str(ve)})
 
+    return app
+
+# Refactored the app run block to make it more modular
+def run_app(app):
     if __name__ == '__main__':
         app.run(host='0.0.0.0', port=5000)
 
-    return app
-
 # Load the saved model server and run the Flask app
 if __name__ == '__main__':
-    create_and_run_app()
+    model_path = "random_forest_model"
+    mlflow_app = create_and_run_app(model_path)
+    run_app(mlflow_app)
