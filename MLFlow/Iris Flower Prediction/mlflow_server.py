@@ -17,6 +17,7 @@ class ModelServer:
 def create_and_run_app(model_path="random_forest_model"):
     app = Flask(__name__)
     model_server = ModelServer(model_path)
+    
 
     @app.route('/predict', methods=['POST'])
     def predict():
