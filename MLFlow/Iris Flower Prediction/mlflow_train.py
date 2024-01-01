@@ -18,6 +18,7 @@ class MLFlowExperiment:
     def train_random_forest(self, X_train, y_train, n_estimators=100, random_state=42):
         model = RandomForestClassifier(n_estimators=n_estimators, random_state=random_state)
         model.fit(X_train, y_train)
+        
         return model
 
     def evaluate_model(self, model, X_test, y_test):
