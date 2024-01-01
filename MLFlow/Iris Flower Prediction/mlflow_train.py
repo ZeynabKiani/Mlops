@@ -13,13 +13,11 @@ class MLFlowExperiment:
 
     def load_and_split_data(self, test_size=0.2, random_state=42):
         data = load_iris()
-        
         return train_test_split(data.data, data.target, test_size=test_size, random_state=random_state)
 
     def train_random_forest(self, X_train, y_train, n_estimators=100, random_state=42):
         model = RandomForestClassifier(n_estimators=n_estimators, random_state=random_state)
         model.fit(X_train, y_train)
-        
         return model
 
     def evaluate_model(self, model, X_test, y_test):
