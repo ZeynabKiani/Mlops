@@ -37,12 +37,12 @@ class MLFlowExperiment:
         os.makedirs("data", exist_ok=True)
         pd.DataFrame(X_test, columns=feature_names).to_csv(output_path, index=False)
 
-    def run_experiment(self):
+    def run_experiment(self, n_estimators=100, random_state=42):
         X_train, X_test, y_train, y_test = self.load_and_split_data()
-        model = self.train_random_forest(X_train, y_train, n_estimators=100, random_state=42)
+        model = self.train_random_forest(X_train, y_train, n_estimators=n_estimators, random_state=random_state)
         accuracy, precision, recall = self.evaluate_model(model, X_test, y_test)
 
-        params = {"n_estimators": 100, "random_state": 42}
+        params = {"n_estimators": n_estimators, "random_state": random_state}
         metrics = {"accuracy": accuracy, "precision": precision, "recall": recall}
         self.log_to_mlflow(model, params, metrics)
         self.save_test_data(X_test, load_iris().feature_names)
