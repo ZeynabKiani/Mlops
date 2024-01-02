@@ -8,7 +8,6 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score
 import os
 
 class MLFlowExperiment:
-    
     def __init__(self, model_name="random_forest_model"):
         self.model_name = model_name
 
