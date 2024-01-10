@@ -47,7 +47,7 @@ class MLFlowExperiment:
         self.log_to_mlflow(model, params, metrics)
         self.save_test_data(X_test, load_iris().feature_names)
 
+        
 if __name__ == "__main__":
     experiment = MLFlowExperiment()
     experiment.run_experiment()
-.
